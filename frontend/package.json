@@ -15,16 +15,18 @@
     "@apollo/client": "^3.5.8",
     "@mdx-js/loader": "^2.0.0",
     "@next/mdx": "^12.0.10",
+    "babel-plugin-styled-components": "^2.0.2",
     "graphql": "^16.3.0",
     "moment": "^2.24.0",
     "next": "^11.0.0",
     "next-compose-plugins": "^2.2.1",
     "next-mdx-remote": "^3.0.8",
     "qs": "^6.10.1",
-    "react": "17.0.0",
-    "react-dom": "17.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-markdown": "^4.2.2",
-    "react-moment": "^0.9.6"
+    "react-moment": "^0.9.6",
+    "styled-components": "^5.3.3"
   },
   "license": "MIT",
   "devDependencies": {

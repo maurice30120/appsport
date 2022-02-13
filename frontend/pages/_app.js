@@ -8,7 +8,32 @@ import { getStrapiMedia } from "../lib/media"
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
 
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 
+const GlobalStyle = createGlobalStyle`
+html{
+  box-sizing: border-box;
+  background: #F5F4F0;
+  display:block;
+  height: 100%;
+  max-width: 640px;
+  margin:0 auto;
+  padding: 0;
+}
+
+body{
+  background-color:#fafafa;
+  min-height:100vh;
+  padding: 1rem;
+  margin-top:0;
+  font-family:Verdana;
+}
+`;
+const theme = {
+  colors: {
+    primary: "#fafafa",
+  },
+};
 // Store Strapi Global object in context
 export const GlobalContext = createContext({})
 
@@ -23,9 +48,13 @@ const MyApp = ({ Component, pageProps }) => {
           href={getStrapiMedia(global.attributes.favicon)}
         />
       </Head>
+
       <GlobalContext.Provider value={global.attributes}>
         <ApolloProvider client={client}>
-          <Component {...pageProps} />
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
         </ApolloProvider>
       </GlobalContext.Provider>
     </>

@@ -26,6 +26,12 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "nombreSeries": {
+      "type": "integer"
+    },
+    "rest": {
+      "type": "integer"
     }
   }
 }

@@ -23,6 +23,9 @@
     },
     "slug": {
       "type": "uid"
+    },
+    "content": {
+      "type": "richtext"
     }
   }
 }

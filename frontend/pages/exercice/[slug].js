@@ -14,6 +14,10 @@ const Exercice = ({ exercice }) => {
   return (
     <Layout categories={[]}>
       <pre>{JSON.stringify(exercice)}</pre>
+      <ReactMarkdown
+            source={exercice.content}
+            escapeHtml={false}
+          />
     </Layout>
   )
 }
@@ -22,16 +26,24 @@ const Exercice = ({ exercice }) => {
 export default Exercice
 
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
   const { data } = await client.query({
     query: gql`
     query Exo {
-      exercices(filters:{slug:{eq:"dips"}}) {
+      exercices(filters:{slug:{eq:"${params.slug}"}}) {
         data {
           id
           attributes {
             title
             slug
+            content
+            Mouvements {
+              __typename
+              ... on ComponentSharedExercice {
+                title
+                content
+              }
+            }
           }
         }
       }
@@ -40,7 +52,7 @@ export async function getStaticProps() {
   });
 
   return {
-    props: { exercice: data },
+    props: { exercice: data.exercices.data[0].attributes },
     revalidate: 1,
   }
 

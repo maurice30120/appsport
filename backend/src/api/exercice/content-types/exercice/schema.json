@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exercices",
+  "info": {
+    "singularName": "exercice",
+    "pluralName": "exercices",
+    "displayName": "Exercice",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Mouvements": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.exercice"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    }
+  }
+}

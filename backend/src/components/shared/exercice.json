@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_exercices",
+  "info": {
+    "displayName": "mouvement",
+    "icon": "child",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

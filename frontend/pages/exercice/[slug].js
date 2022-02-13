@@ -1,15 +1,15 @@
 import ReactMarkdown from "react-markdown"
 import Moment from "react-moment"
 import { fetchAPI } from "../../lib/api"
-import Layout from "../../components/layout"
-import NextImage from "../../components/image"
-import Seo from "../../components/seo"
+import Layout from "/components/templates/layout"
+import NextImage from "../../components/atoms/image"
+import Seo from "../../components/organisms/seo"
 import { getStrapiMedia } from "../../lib/media"
 import { gql } from "@apollo/client";
 import client from "./../../apollo-client";
 // import { serialize } from 'next-mdx-remote/serialize'
 // import { MDXRemote } from 'next-mdx-remote'
-import { Mouvement } from '../../components/MDX/mouvement/index.js'
+import { Mouvement } from '../../MDX/mouvement/index.js'
 
 // export const Heading = () => { return (<h1>ma biiite</h1>) }
 
@@ -22,8 +22,9 @@ const Exercice = ({ exercice, mouvements }) => {
       <h1>Exercice :  {exercice.title}</h1>
       {
         mouvements.map(({ title, mouvement }) => {
+          debugger
           const attributes = mouvement.data.attributes
-          return (<Mouvement data={attributes} objectif={""} rest={0}></Mouvement>)
+          return (<Mouvement key={mouvement.data.id} data={attributes} objectif={""} rest={0}></Mouvement>)
         })
       }
     </Layout>
@@ -38,7 +39,7 @@ export async function getStaticProps({ params }) {
   const { data } = await client.query({
     query: gql`
     query Exo {
-      exercices(filters:{slug:{eq:"${params.slug}"}}) {
+      exercices(filters: { slug: { eq: "dips" } }) {
         data {
           id
           attributes {
@@ -47,8 +48,8 @@ export async function getStaticProps({ params }) {
             nombreSeries
             rest
             Mouvements {
-              __typename
               ... on ComponentSharedExercice {
+                id
                 title
                 objectif
                 rest
@@ -64,6 +65,7 @@ export async function getStaticProps({ params }) {
     
     fragment FragMouvement on MouvementEntityResponse {
       data {
+        id
         attributes {
           slug
           images {
@@ -77,6 +79,7 @@ export async function getStaticProps({ params }) {
     
     fragment FragImages on UploadFileRelationResponseCollection {
       data {
+        id
         attributes {
           name
           alternativeText

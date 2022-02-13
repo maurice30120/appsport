@@ -1,9 +1,9 @@
 import ReactMarkdown from "react-markdown"
 import Moment from "react-moment"
 import { fetchAPI } from "../../lib/api"
-import Layout from "../../components/layout"
-import NextImage from "../../components/image"
-import Seo from "../../components/seo"
+import Layout from "/components/templates/layout"
+import NextImage from "../../components/atoms/image"
+import Seo from "../../components/organisms/seo"
 import { getStrapiMedia } from "../../lib/media"
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
@@ -20,7 +20,6 @@ const Article = ({ article, categories,source }) => {
     shareImage: article.attributes.image,
     article: true,
   }
-  debugger
 
   return (
     <Layout categories={categories.data}>

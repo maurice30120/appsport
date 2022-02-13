@@ -1,7 +1,7 @@
 import React from "react"
-import Articles from "../components/articles"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Articles from "../components/templates/articles"
+import Layout from "../components/templates/layout"
+import Seo from "../components/organisms/seo"
 import { fetchAPI } from "../lib/api"
 
 const Home = ({ articles, categories, homepage }) => {

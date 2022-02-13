@@ -1,1 +1,0 @@
-export const Heading = () => { return (<h1>ma biiite</h1>) }

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mouvements",
+  "info": {
+    "singularName": "mouvement",
+    "pluralName": "mouvements",
+    "displayName": "Mouvement",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "Title"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

@@ -10,8 +10,16 @@
     "title": {
       "type": "string"
     },
-    "content": {
-      "type": "richtext"
+    "mouvement": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::mouvement.mouvement"
+    },
+    "objectif": {
+      "type": "integer"
+    },
+    "rest": {
+      "type": "integer"
     }
   }
 }

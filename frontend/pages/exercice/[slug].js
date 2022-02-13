@@ -7,17 +7,25 @@ import Seo from "../../components/seo"
 import { getStrapiMedia } from "../../lib/media"
 import { gql } from "@apollo/client";
 import client from "./../../apollo-client";
+// import { serialize } from 'next-mdx-remote/serialize'
+// import { MDXRemote } from 'next-mdx-remote'
+import { Mouvement } from '../../components/MDX/mouvement/index.js'
 
-const Exercice = ({ exercice }) => {
+// export const Heading = () => { return (<h1>ma biiite</h1>) }
 
-  debugger
+// const components = { Heading, Mouvement }
+
+const Exercice = ({ exercice, mouvements }) => {
+
   return (
     <Layout categories={[]}>
-      <pre>{JSON.stringify(exercice)}</pre>
-      <ReactMarkdown
-            source={exercice.content}
-            escapeHtml={false}
-          />
+      <h1>Exercice :  {exercice.title}</h1>
+      {
+        mouvements.map(({ title, mouvement }) => {
+          const attributes = mouvement.data.attributes
+          return (<Mouvement data={attributes} objectif={""} rest={0}></Mouvement>)
+        })
+      }
     </Layout>
   )
 }
@@ -36,23 +44,56 @@ export async function getStaticProps({ params }) {
           attributes {
             title
             slug
-            content
+            nombreSeries
+            rest
             Mouvements {
               __typename
               ... on ComponentSharedExercice {
                 title
-                content
+                objectif
+                rest
+                mouvement {
+                  ...FragMouvement
+                }
               }
             }
           }
         }
       }
     }
+    
+    fragment FragMouvement on MouvementEntityResponse {
+      data {
+        attributes {
+          slug
+          images {
+            ...FragImages
+          }
+          Title
+          content
+        }
+      }
+    }
+    
+    fragment FragImages on UploadFileRelationResponseCollection {
+      data {
+        attributes {
+          name
+          alternativeText
+          url
+        }
+      }
+    }
+    
     `,
   });
 
+  // MDX text - can be from a local file, database, anywhere
+  const mouvements = data.exercices.data[0].attributes.Mouvements
+  // const mdxSource = await serialize(content)
+
   return {
-    props: { exercice: data.exercices.data[0].attributes },
+    props: { exercice: data.exercices.data[0].attributes, mouvements: mouvements },
     revalidate: 1,
   }
 

@@ -1,7 +1,7 @@
 # read me 
 
 ## architecture
-
+a voir
 
 ### composant 
 

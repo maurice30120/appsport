@@ -5,8 +5,13 @@ import Layout from "../../components/layout"
 import NextImage from "../../components/image"
 import Seo from "../../components/seo"
 import { getStrapiMedia } from "../../lib/media"
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote'
+export const Heading = () => { return (<h1>ma biiite</h1>) }
 
-const Article = ({ article, categories }) => {
+const components = { Heading }
+
+const Article = ({ article, categories,source }) => {
   const imageUrl = getStrapiMedia(article.attributes.image)
 
   const seo = {
@@ -15,6 +20,7 @@ const Article = ({ article, categories }) => {
     shareImage: article.attributes.image,
     article: true,
   }
+  debugger
 
   return (
     <Layout categories={categories.data}>
@@ -54,6 +60,7 @@ const Article = ({ article, categories }) => {
           </div>
         </div>
       </div>
+      <MDXRemote {...source} components={components} />
     </Layout>
   )
 }
@@ -72,6 +79,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  // MDX text - can be from a local file, database, anywhere
+  const source = 'Some **mdx** text, with a component <Heading />'
+  const mdxSource = await serialize(source)
+
   const articlesRes = await fetchAPI("/articles", {
     filters: {
       slug: params.slug,
@@ -81,9 +92,14 @@ export async function getStaticProps({ params }) {
   const categoriesRes = await fetchAPI("/categories")
 
   return {
-    props: { article: articlesRes.data[0], categories: categoriesRes },
+    props: {
+      article: articlesRes.data[0], categories: categoriesRes,
+      source: mdxSource
+    },
     revalidate: 1,
   }
 }
 
 export default Article
+
+

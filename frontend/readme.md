@@ -1,11 +1,12 @@
 # read me 
 
 ## architecture
-
+a voir
 
 ### composant 
 
 1. mouvement :
+
 <Seance>
 <Slot pause="" repetitions="">
     <Exo>

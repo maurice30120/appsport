@@ -1,59 +1,115 @@
-// import Articles from "../../components/articles"
-import Layout from "../../components/layout"
-// import Seo from "../../components/seo"
-
-import { gql } from "@apollo/client";
-import client from "../../apollo-client";
+import ReactMarkdown from "react-markdown"
+import Moment from "react-moment"
 import { fetchAPI } from "../../lib/api"
+import Layout from "../../components/layout"
+import NextImage from "../../components/image"
+import Seo from "../../components/seo"
+import { getStrapiMedia } from "../../lib/media"
+import { gql } from "@apollo/client";
+import client from "./../../apollo-client";
+// import { serialize } from 'next-mdx-remote/serialize'
+// import { MDXRemote } from 'next-mdx-remote'
+import { Mouvement } from '../../components/MDX/mouvement/index.js'
 
-const Exercice = ({ exercice, exercices }) => {
-  debugger
-  // const seo = {
-  //   metaTitle: category.attributes.name,
-  //   metaDescription: `All ${category.attributes.name} articles`,
-  // }
+// export const Heading = () => { return (<h1>ma biiite</h1>) }
+
+// const components = { Heading, Mouvement }
+
+const Exercice = ({ exercice, mouvements }) => {
 
   return (
-    // <Layout categories={categories.data}>
-    // {/* <Seo seo={seo} /> */ }
-    // < div className = "uk-section" >
-    //   <div className="uk-container uk-container-large">
-    //     {/* <h1>{category.attributes.name}</h1> */}
-    //     {/* <Articles articles={category.attributes.articles.data} /> */}
-    //   </div>
-    //   </div >
-    // </Layout>
-    < h1 > coucou </h1>
+    <Layout categories={[]}>
+      <h1>Exercice :  {exercice.title}</h1>
+      {
+        mouvements.map(({ title, mouvement }) => {
+          const attributes = mouvement.data.attributes
+          return (<Mouvement data={attributes} objectif={""} rest={0}></Mouvement>)
+        })
+      }
+    </Layout>
   )
 }
 
 
-export async function getStaticPaths() {
-  const articlesRes = await fetchAPI("/exercices", { fields: ["slug"] })
+export default Exercice
+
+
+export async function getStaticProps({ params }) {
+  const { data } = await client.query({
+    query: gql`
+    query Exo {
+      exercices(filters:{slug:{eq:"${params.slug}"}}) {
+        data {
+          id
+          attributes {
+            title
+            slug
+            nombreSeries
+            rest
+            Mouvements {
+              __typename
+              ... on ComponentSharedExercice {
+                title
+                objectif
+                rest
+                mouvement {
+                  ...FragMouvement
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    fragment FragMouvement on MouvementEntityResponse {
+      data {
+        attributes {
+          slug
+          images {
+            ...FragImages
+          }
+          Title
+          content
+        }
+      }
+    }
+    
+    fragment FragImages on UploadFileRelationResponseCollection {
+      data {
+        attributes {
+          name
+          alternativeText
+          url
+        }
+      }
+    }
+    
+    `,
+  });
+
+  // MDX text - can be from a local file, database, anywhere
+  const mouvements = data.exercices.data[0].attributes.Mouvements
+  // const mdxSource = await serialize(content)
 
   return {
-    paths: articlesRes.data.map((article) => ({
+    props: { exercice: data.exercices.data[0].attributes, mouvements: mouvements },
+    revalidate: 1,
+  }
+
+
+}
+
+
+export async function getStaticPaths() {
+  const exercicesRes = await fetchAPI("/exercices", { fields: ["slug"] })
+
+  return {
+    paths: exercicesRes.data.map((exercice) => ({
       params: {
-        slug: article.attributes.slug,
+        slug: exercice.attributes.slug,
       },
     })),
     fallback: false,
   }
 }
-
-export async function getStaticProps({ params }) {
-  const articlesRes = await fetchAPI("/exercices", {
-    filters: {
-      slug: params.slug,
-    },
-    populate: "*",
-  })
-  const categoriesRes = await fetchAPI("/categories")
-
-  return {
-    props: { article: "articlesRes.data[0]", categories: "categoriesRes" },
-    revalidate: 1,
-  }
-}
-
-export default Exercice

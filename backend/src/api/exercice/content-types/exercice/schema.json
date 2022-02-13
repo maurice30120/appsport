@@ -23,6 +23,15 @@
     },
     "slug": {
       "type": "uid"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "nombreSeries": {
+      "type": "integer"
+    },
+    "rest": {
+      "type": "integer"
     }
   }
 }

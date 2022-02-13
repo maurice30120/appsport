@@ -8,4 +8,14 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx$/,
+})
+
+// module.exports = { nextConfig, withMDX }
+
+const plugins=[withMDX]
+// next.config.js
+const withPlugins = require('next-compose-plugins');
+
+module.exports = withPlugins([...plugins], nextConfig);

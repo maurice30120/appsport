@@ -4,14 +4,14 @@ import "../assets/css/style.css"
 import { createContext } from "react"
 import { fetchAPI } from "../lib/api"
 import { getStrapiMedia } from "../lib/media"
-
+import './../style/globals.css'
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
 
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-html{
+/* html{
   box-sizing: border-box;
   background: #F5F4F0;
   display:block;
@@ -27,12 +27,12 @@ body{
   padding: 1rem;
   margin-top:0;
   font-family:Verdana;
-}
+} */
 `;
 const theme = {
-  colors: {
-    primary: "#fafafa",
-  },
+  // colors: {
+  //   // primary: "#fafafa",
+  // },
 };
 // Store Strapi Global object in context
 export const GlobalContext = createContext({})

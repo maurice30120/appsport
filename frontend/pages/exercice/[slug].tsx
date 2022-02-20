@@ -6,10 +6,12 @@ import { Mouvement } from '../../MDX/mouvement/index.js'
 import Layout from "../../components/templates/layout";
 import { Compteur } from "../../components/atoms/compteur";
 
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
 
 
-const Exercice = ({ exercice, mouvements }) => {
-
+const Exercice: NextPage = ({ exercice, mouvements }) => {
   return (
     <Layout categories={[]}>
 
@@ -23,6 +25,25 @@ const Exercice = ({ exercice, mouvements }) => {
     </Layout>
   )
 }
+
+
+
+
+// {
+
+//   return (
+//     <Layout categories={[]}>
+
+//       <h1>Exercice :  {exercice.title}</h1>
+//       {
+//         mouvements.map(({ title, mouvement }) => {
+//           const attributes = mouvement.data.attributes
+//           return (<Mouvement key={mouvement.data.id} data={attributes} objectif={""} rest={0}></Mouvement>)
+//         })
+//       }
+//     </Layout>
+//   )
+// }
 
 
 export default Exercice

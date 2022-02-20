@@ -7,6 +7,8 @@ import { ApolloProvider } from "@apollo/client";
 import App from 'next/app'
 import { getStrapiMedia } from '../../lib/media'
 import { fetchAPI } from '../../lib/api'
+import { Provider } from 'react-redux'
+import { store } from '../entity/store'
 
 export const GlobalContext = createContext({})
 function MyApp({ Component, pageProps }: AppProps) {
@@ -23,7 +25,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <GlobalContext.Provider value={global.attributes}>
         <ApolloProvider client={client}>
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
         </ApolloProvider>
       </GlobalContext.Provider>
     </>

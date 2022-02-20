@@ -2,11 +2,12 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Compteur } from '../../components/atoms/compteur';
 import type { NextPage } from 'next'
+import { toggleExercice } from '../../src/entity/store';
 
 
 export const MouvementView = ({ data, objectif = 0, rest = 0 }) => {
 	const { Title, content, images, slug } = data;
-
+	
 	return (
 		<Wrapper >
 			<>

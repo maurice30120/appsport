@@ -5,12 +5,19 @@ import { Button } from "../../../components/atoms/button"
 import { Layout } from "../../../components/templates/layout"
 import { fetchAPI } from "../../../lib/api"
 import { Mouvement } from "../../../MDX/mouvement"
+import { toggleExercice, useAppDispatch } from "../../entity/store"
 
 
 
 function Exercice({ exercice, mouvements }) {
+  const dispatch = useAppDispatch()
 
   const [currentSerie, setCurrentSerie] = useState(0)
+
+  const clickHandler = () => {
+    debugger
+    dispatch(toggleExercice())
+  }
   return (
 
     <Layout categories={[]} seo={undefined}>
@@ -23,7 +30,7 @@ function Exercice({ exercice, mouvements }) {
           })
         }
 
-        <Button>coucou</Button>
+        <Button onClick={clickHandler}>coucou</Button>
       </div>
 
     </Layout>

@@ -3,16 +3,14 @@ import { gql } from "@apollo/client";
 import client from "../../apollo-client";
 
 import { Mouvement } from '../../MDX/mouvement/index.js'
-import Layout from "../../components/templates/layout";
-import { Compteur } from "../../components/atoms/compteur";
 
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import { Layout } from "../../components/templates/layout";
 
 
-const Exercice: NextPage = ({ exercice, mouvements }) => {
+function Exercice({ exercice, mouvements }) {
   return (
+
     <Layout categories={[]}>
 
       <h1>Exercice :  {exercice.title}</h1>
@@ -24,6 +22,8 @@ const Exercice: NextPage = ({ exercice, mouvements }) => {
       }
     </Layout>
   )
+
+
 }
 
 

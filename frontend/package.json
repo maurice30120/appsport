@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "develop": "next dev",
+    "develop": "yarn next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "start:css": "tailwindcss -o src/tailwind.css --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",

@@ -1,13 +1,11 @@
-import { fetchAPI } from "../../lib/api"
-import { gql } from "@apollo/client";
-import client from "../../apollo-client";
+import { gql } from "@apollo/client"
+import { useState } from "react"
+import client from "../../../apollo-client"
+import { Button } from "../../../components/atoms/button"
+import { Layout } from "../../../components/templates/layout"
+import { fetchAPI } from "../../../lib/api"
+import { Mouvement } from "../../../MDX/mouvement"
 
-import { Mouvement } from '../../MDX/mouvement/index.js'
-
-import type { NextPage } from 'next'
-import { Layout } from "../../components/templates/layout";
-import { useState } from "react";
-import { Button } from "../../components/atoms/button";
 
 
 function Exercice({ exercice, mouvements }) {

@@ -1,12 +1,12 @@
-import '../styles/globals.css'
+import './../../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { createContext } from 'react'
 import Head from 'next/head'
-import { getStrapiMedia } from '../lib/media'
-import client from '../apollo-client'
+import client from './../../apollo-client'
 import { ApolloProvider } from "@apollo/client";
-import { fetchAPI } from '../lib/api'
 import App from 'next/app'
+import { getStrapiMedia } from '../../lib/media'
+import { fetchAPI } from '../../lib/api'
 
 export const GlobalContext = createContext({})
 function MyApp({ Component, pageProps }: AppProps) {

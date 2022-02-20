@@ -6,44 +6,33 @@ import { Mouvement } from '../../MDX/mouvement/index.js'
 
 import type { NextPage } from 'next'
 import { Layout } from "../../components/templates/layout";
+import { useState } from "react";
+import { Button } from "../../components/atoms/button";
 
 
 function Exercice({ exercice, mouvements }) {
+
+  const [currentSerie, setCurrentSerie] = useState(0)
   return (
 
-    <Layout categories={[]}>
+    <Layout categories={[]} seo={undefined}>
+      <div>
+        <h1>Exercice :  {exercice.title}</h1>
+        {
+          mouvements.map(({ title, mouvement }) => {
+            const attributes = mouvement.data.attributes
+            return (<Mouvement key={mouvement.data.id} data={attributes} objectif={""} rest={0}></Mouvement>)
+          })
+        }
 
-      <h1>Exercice :  {exercice.title}</h1>
-      {
-        mouvements.map(({ title, mouvement }) => {
-          const attributes = mouvement.data.attributes
-          return (<Mouvement key={mouvement.data.id} data={attributes} objectif={""} rest={0}></Mouvement>)
-        })
-      }
+        <Button>coucou</Button>
+      </div>
+
     </Layout>
   )
 
 
 }
-
-
-
-
-// {
-
-//   return (
-//     <Layout categories={[]}>
-
-//       <h1>Exercice :  {exercice.title}</h1>
-//       {
-//         mouvements.map(({ title, mouvement }) => {
-//           const attributes = mouvement.data.attributes
-//           return (<Mouvement key={mouvement.data.id} data={attributes} objectif={""} rest={0}></Mouvement>)
-//         })
-//       }
-//     </Layout>
-//   )
-// }
 
 
 export default Exercice
